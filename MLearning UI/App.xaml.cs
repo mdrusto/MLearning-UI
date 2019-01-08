@@ -15,43 +15,25 @@ namespace MLearning_UI
     /// </summary>
     public partial class App : Application
     {
-        public DigitImage[] images;
+        private DigitImage[] images;
+        private NeuralNetwork network = new NeuralNetwork(new NetworkSize(784, new int[] {16}, 10));
+        private bool started = false;
 
         protected override void OnActivated(EventArgs e)
         {
+            if (started)
+                return;
             base.OnActivated(e);
             LoadImages();
-            int index = 301;
-            for (int x = 0; x < 28; x++)
-            {
-                for (int y = 0; y < 28; y++)
-                {
-                    ((MainWindow)this.MainWindow).setInputShade(y, x, images[index].GetValueAt(y, x));
-                }
-            }
-            ((MainWindow)this.MainWindow).setLabel(images[index].label);
-        }
-
-        public class DigitImage
-        {
-            public byte[,] contents;
-            public byte label;
-
-            public DigitImage(byte[,] contents, byte label)
-            {
-                this.contents = contents;
-                this.label = label;
-            }
-
-            public byte GetValueAt(int y, int x)
-            {
-                return contents[y,x];
-            }
-
-            public byte GetLabel()
-            {
-                return label;
-            }
+            int index = 50963;
+            MainWindow window = (MainWindow)this.MainWindow;
+            window.SetImage(images[index]);
+            window.SetLabel(images[index].label);
+            window.Network = network;
+            window.CurrentImage = images[index];
+            window.Images = images;
+            network.Initialize(10, new Random());
+            started = true;
         }
 
         public void LoadImages()
@@ -74,6 +56,11 @@ namespace MLearning_UI
                 }
                 images[counter] = new DigitImage(imageContents, label);
             }
+        }
+
+        private void TrainNetwork(NeuralNetwork network)
+        {
+
         }
     }
 }

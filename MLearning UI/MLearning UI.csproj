@@ -54,6 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BiasVector.cs" />
+    <Compile Include="DigitImage.cs" />
+    <Compile Include="Layer.cs" />
+    <Compile Include="LayerLink.cs" />
+    <Compile Include="LayerSnapshot.cs" />
+    <Compile Include="NetworkGradient.cs" />
+    <Compile Include="NetworkResult.cs" />
+    <Compile Include="WeightMatrix.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +76,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetworkSize.cs" />
+    <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
