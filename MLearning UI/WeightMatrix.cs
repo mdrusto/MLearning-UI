@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MLearning_UI
 {
@@ -12,6 +8,8 @@ namespace MLearning_UI
 
         public WeightMatrix(int rowCount, int columnCount)
         {
+            if (rowCount <= 0 || columnCount <= 0)
+                throw new IndexOutOfRangeException($"Matrix row, column lengths must be positive, got {rowCount}, {columnCount}");
             rows = new WeightMatrixRow[rowCount];
             for (int index = 0; index < rowCount; index++)
             {
@@ -21,11 +19,20 @@ namespace MLearning_UI
 
         public void SetWeight(int row, int column, double value)
         {
+            if (row < 0 || row >= rows.Length)
+                throw new IndexOutOfRangeException($"Row index {row} was not within bounds 0-{rows.Length}");
+            if (column < 0 || column >= rows[0].Length)
+                throw new IndexOutOfRangeException($"Column index {column} was not within bounds 0-{rows[0].Length}");
+
             rows[row].SetWeight(column, value);
         }
 
         public double GetWeight(int row, int column)
         {
+            if (row < 0 || row >= rows.Length)
+                throw new IndexOutOfRangeException($"Row index {row} was not within bounds 0-{rows.Length}");
+            if (column < 0 || column >= rows[0].Length)
+                throw new IndexOutOfRangeException($"Column index {column} was not within bounds 0-{rows[0].Length}");
             return rows[row].GetWeight(column);
         }
     }
@@ -33,10 +40,12 @@ namespace MLearning_UI
     class WeightMatrixRow
     {
         private readonly double[] weights;
+        public int Length { get; }
 
         public WeightMatrixRow(int columnCount)
         {
             weights = new double[columnCount];
+            Length = weights.Length;
         }
 
         public double GetWeight(int column)

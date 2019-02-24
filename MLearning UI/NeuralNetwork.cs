@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MLearning_UI
 {
@@ -12,6 +8,8 @@ namespace MLearning_UI
         private readonly Layer[] layers;
 
         private readonly LayerLink[] links;
+
+        public double Accuracy;
 
         public NeuralNetwork(NetworkSize size)
         {
@@ -55,9 +53,14 @@ namespace MLearning_UI
             {
                 double[] zValues = links[layerIndex].GetZValues(currentActivations);
                 snapshots[layerIndex] = layers[layerIndex].getOutput(zValues);
-                currentActivations = snapshots[layerIndex].output;
+                currentActivations = snapshots[layerIndex].Output;
             }
             return new NetworkResult(snapshots);
+        }
+
+        public void Train()
+        {
+
         }
     }
 }

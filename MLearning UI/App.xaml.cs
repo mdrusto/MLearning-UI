@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace MLearning_UI
 {
@@ -16,8 +10,10 @@ namespace MLearning_UI
     public partial class App : Application
     {
         private DigitImage[] images;
-        private NeuralNetwork network = new NeuralNetwork(new NetworkSize(784, new int[] {16}, 10));
         private bool started = false;
+
+        public static readonly double WINDOW_TITLE_HEIGHT = SystemParameters.WindowCaptionHeight + SystemParameters.ResizeFrameHorizontalBorderHeight;
+        public static readonly double WINDOW_BORDER_WIDTH = SystemParameters.ResizeFrameVerticalBorderWidth;
 
         protected override void OnActivated(EventArgs e)
         {
@@ -27,12 +23,10 @@ namespace MLearning_UI
             LoadImages();
             int index = 50963;
             MainWindow window = (MainWindow)this.MainWindow;
-            window.SetImage(images[index]);
-            window.SetLabel(images[index].label);
-            window.Network = network;
+            //window.SetImage(images[index]);
+            //window.SetLabel(images[index].label);
             window.CurrentImage = images[index];
             window.Images = images;
-            network.Initialize(10, new Random());
             started = true;
         }
 
