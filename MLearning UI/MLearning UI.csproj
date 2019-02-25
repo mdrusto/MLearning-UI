@@ -56,38 +56,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddNetworkWindow.xaml.cs">
+    <Compile Include="UI Elements\AddNetworkWindow.xaml.cs">
       <DependentUpon>AddNetworkWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BiasVector.cs" />
-    <Compile Include="DeleteNetworkConfirmationWindow.xaml.cs">
+    <Compile Include="Network Elements\BiasVector.cs" />
+    <Compile Include="UI Elements\DeleteNetworkConfirmationWindow.xaml.cs">
       <DependentUpon>DeleteNetworkConfirmationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DigitImage.cs" />
-    <Compile Include="Layer.cs" />
-    <Compile Include="LayerLink.cs" />
-    <Compile Include="LayerSnapshot.cs" />
-    <Compile Include="NetworkGradient.cs" />
-    <Compile Include="NetworkButtonPanel.xaml.cs">
+    <Compile Include="Network Elements\DigitImage.cs" />
+    <Compile Include="Network Elements\Layer.cs" />
+    <Compile Include="Network Elements\LayerLink.cs" />
+    <Compile Include="Network Elements\LayerSnapshot.cs" />
+    <Compile Include="Network Elements\NetworkGradient.cs" />
+    <Compile Include="UI Elements\NetworkButtonPanel.xaml.cs">
       <DependentUpon>NetworkButtonPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NetworkInputDisplay.xaml.cs">
+    <Compile Include="UI Elements\NetworkInputDisplay.xaml.cs">
       <DependentUpon>NetworkInputDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NetworkOutputDisplay.xaml.cs">
+    <Compile Include="UI Elements\NetworkOutputDisplay.xaml.cs">
       <DependentUpon>NetworkOutputDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NetworkResult.cs" />
-    <Compile Include="WeightMatrix.cs" />
-    <Page Include="AddNetworkWindow.xaml">
+    <Compile Include="Network Elements\NetworkResult.cs" />
+    <Compile Include="Network Elements\WeightMatrix.cs" />
+    <Page Include="UI Elements\AddNetworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeleteNetworkConfirmationWindow.xaml">
+    <Page Include="UI Elements\DeleteNetworkConfirmationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI Elements\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -95,26 +95,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI Elements\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NetworkButtonPanel.xaml">
+    <Page Include="UI Elements\NetworkButtonPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NetworkInputDisplay.xaml">
+    <Page Include="UI Elements\NetworkInputDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NetworkOutputDisplay.xaml">
+    <Page Include="UI Elements\NetworkOutputDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NetworkSize.cs" />
-    <Compile Include="NeuralNetwork.cs" />
+    <Compile Include="Network Elements\NetworkSize.cs" />
+    <Compile Include="Network Elements\NeuralNetwork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

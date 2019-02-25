@@ -9,7 +9,8 @@ namespace MLearning_UI
 
         private readonly LayerLink[] links;
 
-        public double Accuracy;
+        public double Accuracy { get; set; }
+        public string Name { get; set; }
 
         public NeuralNetwork(NetworkSize size)
         {

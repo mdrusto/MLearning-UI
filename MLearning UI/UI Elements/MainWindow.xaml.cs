@@ -50,34 +50,40 @@ namespace MLearning_UI
             {
                 Height = 80
             };
-            Border border = new Border
+            string name = "Network 1";
+            NeuralNetwork network = new NeuralNetwork(new NetworkSize(784, new int[] { 16 }, 10))
             {
-                BorderBrush = Brushes.CadetBlue,
-                Child = networkPanel,
-                BorderThickness = new Thickness(2),
-                Visibility = Visibility.Visible
+                Name = name
             };
-            NeuralNetwork network = new NeuralNetwork(new NetworkSize(784,new int[]{ 16 },10));
             bool isInitialized = true;
             networks.Add(networkPanel, network);
-            networkPanel.NetworkName.Content = "Network 1";
+            networkPanel.NetworkName.Content = name;
             networkPanel.AccuracyLabel.Content = isInitialized ? "Initialized" : "Uninitialized";
             networkPanel.AccuracyLabel.Foreground = new SolidColorBrush()
             {
                 Color = isInitialized ? Color.FromRgb(200, 255, 200) : Color.FromRgb(100, 100, 100)
             };
+            System.Windows.Controls.Button networkButton = new System.Windows.Controls.Button
+            {
+                Content = networkPanel,
+                Background = new SolidColorBrush()
+                {
+                    Color = Color.FromRgb(255, 255, 255)
+                }
+            };
             networkPanel.NetworkSizeLabel.Content = "784-16-10";
             networkPanel.VerticalAlignment = VerticalAlignment.Top;
-            NetworksListPanel.Children.Add(border);
-            DockPanel.SetDock(border, Dock.Top);
-            networkPanel.MouseDown += delegate (object sender2, MouseButtonEventArgs e2)
+            NetworksListPanel.Children.Add(networkButton);
+            DockPanel.SetDock(networkButton, Dock.Top);
+            networkButton.Click += delegate (object sender2, RoutedEventArgs e2)
             {
                 if (SelectedButton != null)
                     SelectedButton.Background = new SolidColorBrush()
                     {
                         Color = Color.FromRgb(255, 255, 255)
                     };
-                SelectedNetwork = networks[networkPanel];
+                SelectedNetwork = network;
+                NetworkSelected(network);
                 SelectedButton = networkPanel;
                 networkPanel.Background = new SolidColorBrush()
                 {
@@ -103,6 +109,11 @@ namespace MLearning_UI
         private void TrainButton_Clicked(object sender, RoutedEventArgs e)
         {
             SelectedNetwork.Train();
+        }
+
+        private void NetworkSelected(NeuralNetwork network)
+        {
+            NetworkName.Content = network.Name;
         }
     }
 }
