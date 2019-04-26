@@ -1,29 +1,26 @@
 ﻿using System;
 
-namespace MLearning_UI
+namespace MLearning_UI.Network_Elements
 {
     public class NeuralNetwork
     {
-        public NetworkSize Size { get; }
+        public NetworkProperties Properties { get; }
         private readonly Layer[] layers;
-
         private readonly LayerLink[] links;
-
         public double Accuracy { get; set; }
-        public string Name { get; set; }
 
-        public NeuralNetwork(NetworkSize size)
+        public NeuralNetwork(NetworkProperties props)
         {
-            this.Size = size;
-            layers = new Layer[size.TotalLayerCount];
-            layers[0] = new Layer(size.InputLayerLength);
-            for (int index = 1; index < size.InternalLayerCount + 1; index++)
+            Properties = props;
+            layers = new Layer[props.Size.TotalLayerCount];
+            layers[0] = new Layer(props.Size.InputLayerLength);
+            for (int index = 1; index < props.Size.InternalLayerCount + 1; index++)
             {
-                layers[index] = new Layer(size.InternalLayerLengths[index - 1]);
+                layers[index] = new Layer(props.Size.InternalLayerLengths[index - 1]);
             }
-            layers[size.InternalLayerCount + 1] = new Layer(size.OutputLayerLength);
-            this.links = new LayerLink[size.TotalLayerCount - 1];
-            for (int index = 0; index < size.InternalLayerCount + 1 ; index++)
+            layers[props.Size.InternalLayerCount + 1] = new Layer(props.Size.OutputLayerLength);
+            this.links = new LayerLink[props.Size.TotalLayerCount - 1];
+            for (int index = 0; index < props.Size.InternalLayerCount + 1 ; index++)
             {
                 links[index] = new LayerLink(layers[index].Length, layers[index + 1].Length);
             }
@@ -49,8 +46,8 @@ namespace MLearning_UI
         public NetworkResult Run(double[] input)
         {
             double[] currentActivations = input;
-            LayerSnapshot[] snapshots = new LayerSnapshot[Size.InternalLayerCount + 1];
-            for (int layerIndex = 0; layerIndex < Size.InternalLayerCount + 1; layerIndex++)
+            LayerSnapshot[] snapshots = new LayerSnapshot[Properties.Size.InternalLayerCount + 1];
+            for (int layerIndex = 0; layerIndex < Properties.Size.InternalLayerCount + 1; layerIndex++)
             {
                 double[] zValues = links[layerIndex].GetZValues(currentActivations);
                 snapshots[layerIndex] = layers[layerIndex].getOutput(zValues);

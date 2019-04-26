@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MLearning_UI.Network_Elements;
+using System;
 using System.IO;
 using System.Windows;
 
-namespace MLearning_UI
+namespace MLearning_UI.UI_Elements
 {
     /// <summary>
     /// Interaction logic for App.xaml

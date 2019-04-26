@@ -1,13 +1,11 @@
-﻿using System;
+﻿using MLearning_UI.Network_Elements;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
-namespace MLearning_UI
+namespace MLearning_UI.UI_Elements
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -15,6 +13,7 @@ namespace MLearning_UI
     public partial class MainWindow : Window
     {
         private Dictionary<NetworkButtonPanel, NeuralNetwork> networks = new Dictionary<NetworkButtonPanel, NeuralNetwork>();
+        private Dictionary<NeuralNetwork, NetworkInformationPanel> networkInfoPanels = new Dictionary<NeuralNetwork, NetworkInformationPanel>();
         public NeuralNetwork SelectedNetwork = null;
         public NetworkButtonPanel SelectedButton = null;
 
@@ -26,7 +25,6 @@ namespace MLearning_UI
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            NetworkInformationPanel.Visibility = Visibility.Hidden;
         }
 
         public DigitImage CurrentImage { get; set; }
@@ -34,7 +32,7 @@ namespace MLearning_UI
 
         private void RunButtonClicked(object sender, RoutedEventArgs e)
         {
-            double[] inputActivations = new double[SelectedNetwork.Size.InputLayerLength];
+            double[] inputActivations = new double[SelectedNetwork.Properties.Size.InputLayerLength];
             for (int index = 0; index < inputActivations.Length; index++)
             {
                 inputActivations[index] = CurrentImage.GetValueAt(index / 28, index % 28) / 256.0;
@@ -46,74 +44,82 @@ namespace MLearning_UI
 
         private void NetworkAddButton_Click(object sender, RoutedEventArgs e)
         {
-            NetworkButtonPanel networkPanel = new NetworkButtonPanel
+            void propsDelegate(NetworkProperties props)
             {
-                Height = 80
-            };
-            string name = "Network 1";
-            NeuralNetwork network = new NeuralNetwork(new NetworkSize(784, new int[] { 16 }, 10))
-            {
-                Name = name
-            };
-            bool isInitialized = true;
-            networks.Add(networkPanel, network);
-            networkPanel.NetworkName.Content = name;
-            networkPanel.AccuracyLabel.Content = isInitialized ? "Initialized" : "Uninitialized";
-            networkPanel.AccuracyLabel.Foreground = new SolidColorBrush()
-            {
-                Color = isInitialized ? Color.FromRgb(200, 255, 200) : Color.FromRgb(100, 100, 100)
-            };
-            System.Windows.Controls.Button networkButton = new System.Windows.Controls.Button
-            {
-                Content = networkPanel,
-                Background = new SolidColorBrush()
-                {
-                    Color = Color.FromRgb(255, 255, 255)
-                }
-            };
-            networkPanel.NetworkSizeLabel.Content = "784-16-10";
-            networkPanel.VerticalAlignment = VerticalAlignment.Top;
-            NetworksListPanel.Children.Add(networkButton);
-            DockPanel.SetDock(networkButton, Dock.Top);
-            networkButton.Click += delegate (object sender2, RoutedEventArgs e2)
-            {
-                if (SelectedButton != null)
-                    SelectedButton.Background = new SolidColorBrush()
-                    {
-                        Color = Color.FromRgb(255, 255, 255)
-                    };
-                SelectedNetwork = network;
-                NetworkSelected(network);
-                SelectedButton = networkPanel;
-                networkPanel.Background = new SolidColorBrush()
-                {
-                    Color = Color.FromRgb(200, 200, 200)
-                };
-                NetworkInformationPanel.Visibility = Visibility.Visible;
-            };
+                AddNetwork(props);
+            }
+            AddNetworkWindow addWindow = null;
+            addWindow = new AddNetworkWindow(propsDelegate);
+            addWindow.ShowDialog();
         }
 
         private void NetworkDeleteButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteNetworkConfirmationWindow window = null;
             void closer() => window.Close();
-            window = new DeleteNetworkConfirmationWindow(closer);
-            window.Show();
+            void confirmer()
+            {
+                DeleteNetwork();
+                window.Close();
+            }
+            window = new DeleteNetworkConfirmationWindow(closer, confirmer);
+            window.ShowDialog();
         }
 
         private void DeleteNetwork()
         {
+            NetworksListPanel.Children.Remove(SelectedButton);
             networks.Remove(SelectedButton);
+            NetworkUnselected();
         }
 
-        private void TrainButton_Clicked(object sender, RoutedEventArgs e)
+        private void TrainNetwork()
         {
             SelectedNetwork.Train();
         }
 
-        private void NetworkSelected(NeuralNetwork network)
+        private void NetworkSelected(NetworkButtonPanel networkPanel)
         {
-            NetworkName.Content = network.Name;
+            NeuralNetwork network = networks[networkPanel];
+            NetworkUnselected();
+            NetworkInformationPlaceholder.Children.Add(networkInfoPanels[network]);
+            NetworkDeleteButton.IsEnabled = true;
+            networkPanel.Background = new SolidColorBrush()
+            {
+                Color = Color.FromRgb(150, 150, 150)
+            };
+        }
+
+        private void NetworkUnselected()
+        {
+            SelectedNetwork = null;
+            NetworkDeleteButton.IsEnabled = false;
+            NetworkInformationPlaceholder.Children.Clear();
+            if (SelectedButton != null)
+                SelectedButton.Background = new SolidColorBrush()
+                {
+                    Color = Color.FromRgb(255, 255, 255)
+                };
+            SelectedButton = null;
+        }
+
+        private void AddNetwork(NetworkProperties props)
+        {
+            NeuralNetwork network = new NeuralNetwork(props);
+            NetworkButtonPanel networkButtonPanel = new NetworkButtonPanel(props);
+            networks.Add(networkButtonPanel, network);
+            networkButtonPanel.Click += delegate (object sender2, RoutedEventArgs e)
+            {
+                NetworkUnselected();
+                SelectedNetwork = network;
+                NetworkSelected(networkButtonPanel);
+                SelectedButton = networkButtonPanel;
+            };
+            void trainDelegate() => TrainNetwork();
+            NetworkInformationPanel infoPanel = new NetworkInformationPanel(network, trainDelegate);
+            networkInfoPanels.Add(network, infoPanel);
+            NetworksListPanel.Children.Add(networkButtonPanel);
+            DockPanel.SetDock(networkButtonPanel, Dock.Top);
         }
     }
 }

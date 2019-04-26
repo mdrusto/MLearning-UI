@@ -56,10 +56,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Network Elements\NetworkProperties.cs" />
     <Compile Include="UI Elements\AddNetworkWindow.xaml.cs">
       <DependentUpon>AddNetworkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Network Elements\BiasVector.cs" />
+    <Compile Include="UI Elements\AddNetworkWindowAddInternalLayerButton.xaml.cs">
+      <DependentUpon>AddNetworkWindowAddInternalLayerButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI Elements\AddNetworkWindowLayerDisplay.xaml.cs">
+      <DependentUpon>AddNetworkWindowLayerDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI Elements\DeleteNetworkConfirmationWindow.xaml.cs">
       <DependentUpon>DeleteNetworkConfirmationWindow.xaml</DependentUpon>
     </Compile>
@@ -79,7 +86,18 @@
     </Compile>
     <Compile Include="Network Elements\NetworkResult.cs" />
     <Compile Include="Network Elements\WeightMatrix.cs" />
+    <Compile Include="UI Elements\NetworkInformationPanel.xaml.cs">
+      <DependentUpon>NetworkInformationPanel.xaml</DependentUpon>
+    </Compile>
     <Page Include="UI Elements\AddNetworkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI Elements\AddNetworkWindowAddInternalLayerButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI Elements\AddNetworkWindowLayerDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI Elements\NetworkOutputDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI Elements\NetworkInformationPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

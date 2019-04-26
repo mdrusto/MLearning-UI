@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MLearning_UI
+namespace MLearning_UI.UI_Elements
 {
     /// <summary>
     /// Interaction logic for DeleteNetworkConfirmationWindow.xaml
@@ -20,14 +20,17 @@ namespace MLearning_UI
     public partial class DeleteNetworkConfirmationWindow : Window
     {
         private CloseConfirmationWindow closer;
+        private ConfirmDeleteNetwork confirmer;
 
-        public DeleteNetworkConfirmationWindow(CloseConfirmationWindow closer)
+        public DeleteNetworkConfirmationWindow(CloseConfirmationWindow closer, ConfirmDeleteNetwork confirmer)
         {
             InitializeComponent();
             this.closer = closer;
+            this.confirmer = confirmer;
         }
 
         public delegate void CloseConfirmationWindow();
+        public delegate void ConfirmDeleteNetwork();
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -36,7 +39,7 @@ namespace MLearning_UI
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-
+            confirmer();
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MLearning_UI
+namespace MLearning_UI.UI_Elements
 {
     /// <summary>
     /// Interaction logic for NetworkOutputDisplay.xaml

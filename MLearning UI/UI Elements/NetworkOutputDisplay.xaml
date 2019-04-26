@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="MLearning_UI.NetworkOutputDisplay"
+﻿<UserControl x:Class="MLearning_UI.UI_Elements.NetworkOutputDisplay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MLearning_UI"
+             xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
              mc:Ignorable="d" 
              d:DesignHeight="280" d:DesignWidth="28">
     <Grid HorizontalAlignment="Left" Height="280" VerticalAlignment="Top" Width="28">

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MLearning_UI
+namespace MLearning_UI.Network_Elements
 {
     public class NetworkResult
     {
