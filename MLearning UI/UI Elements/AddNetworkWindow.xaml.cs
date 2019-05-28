@@ -21,14 +21,22 @@ namespace MLearning_UI.UI_Elements
             {
                 AddNetworkWindowLayerDisplay display = new AddNetworkWindowLayerDisplay
                 {
-                    VerticalAlignment = VerticalAlignment.Top,
                     LayerLength = 1
                 };
                 InternalLayersPanel.Children.Add(display);
                 internalLayerDisplays.Add(display);
                 InternalLayersPanel.Children.Add(new AddNetworkWindowAddInternalLayerButton(buttonDele));
             }
+            InputLayerDisplay.LayerLength = 784;
+            OutputLayerDisplay.LayerLength = 10;
             InternalLayersPanel.Children.Add(new AddNetworkWindowAddInternalLayerButton(buttonDele));
+            InternalLayersPanel.Children.Add(new AddNetworkWindowLayerDisplay { LayerLength = 16 });
+            InternalLayersPanel.Children.Add(new AddNetworkWindowAddInternalLayerButton(buttonDele));
+        }
+
+        private void AddInternalLayer(int position)
+        {
+
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)

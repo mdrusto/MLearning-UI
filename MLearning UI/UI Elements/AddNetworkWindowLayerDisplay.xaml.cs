@@ -13,7 +13,7 @@ namespace MLearning_UI.UI_Elements
         public int LayerLength
         {
             get => int.Parse(LayerLengthTextBox.Text);
-            internal set
+            set
             {
                 if (value > 0)
                     LayerLengthTextBox.Text = value.ToString();

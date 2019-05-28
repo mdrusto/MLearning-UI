@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="MLearning_UI.UI_Elements.NetworkRunDisplayPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
+             mc:Ignorable="d">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button Name="LoadNewImageButton" Content="Load New Random Image" Height="20" Margin="40,0,40,0" HorizontalAlignment="Center" Click="LoadNewImageButton_Clicked"/>
+            <Button Name="RunButton" Content="Run" Height="20" Width="40" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="RunButton_Clicked" IsEnabled="False"/>
+        </StackPanel>
+        <DockPanel>
+            <Border HorizontalAlignment="Left" VerticalAlignment="Center" DockPanel.Dock="Left">
+                <local:NetworkInputDisplay x:Name="InputDisplay"/>
+            </Border>
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Right">
+                <local:NetworkOutputDisplay x:Name="OutputDisplay"/>
+            </Border>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

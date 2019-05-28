@@ -13,33 +13,37 @@ namespace MLearning_UI.UI_Elements
     public partial class MainWindow : Window
     {
         private Dictionary<NetworkButtonPanel, NeuralNetwork> networks = new Dictionary<NetworkButtonPanel, NeuralNetwork>();
-        private Dictionary<NeuralNetwork, NetworkInformationPanel> networkInfoPanels = new Dictionary<NeuralNetwork, NetworkInformationPanel>();
         public NeuralNetwork SelectedNetwork = null;
         public NetworkButtonPanel SelectedButton = null;
+
+        public DigitImage CurrentImage
+        {
+            get => RunDisplayPanel.CurrentImage;
+        }
 
         public MainWindow()
         {
             InitializeComponent();
+            ClearNetworkInfoPanels();
         }
 
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+            RunDisplayPanel.LoadRandomImage();
+
+        }
+        
+        private NetworkResult RunSelectedNetwork()
+        {
+            // This is not in RunDisplay class because RunDisplay should know nothing about the selected network
+            double[] inputActivations = CurrentImage.AsDoubleArray;
+            return SelectedNetwork.Run(inputActivations);
         }
 
-        public DigitImage CurrentImage { get; set; }
-        public DigitImage[] Images { get; set; }
-
-        private void RunButtonClicked(object sender, RoutedEventArgs e)
+        private void SetOutputShades(double[] values)
         {
-            double[] inputActivations = new double[SelectedNetwork.Properties.Size.InputLayerLength];
-            for (int index = 0; index < inputActivations.Length; index++)
-            {
-                inputActivations[index] = CurrentImage.GetValueAt(index / 28, index % 28) / 256.0;
-            }
-            NetworkResult result = SelectedNetwork.Run(inputActivations);
-            double[] output = result.Output;
-            //SetOutputShades(output);
+            RunDisplayPanel.OutputDisplay.SetOutputShades(values);
         }
 
         private void NetworkAddButton_Click(object sender, RoutedEventArgs e)
@@ -78,29 +82,80 @@ namespace MLearning_UI.UI_Elements
             SelectedNetwork.Train();
         }
 
+        private void ClearNetworkInfoPanels()
+        {
+            // Clear Accuracy Panel
+            AccuracyPanel.AccuracyPercentage.Visibility = Visibility.Hidden;
+            AccuracyPanel.UntestedLabel.Visibility = Visibility.Hidden;
+            AccuracyPanel.NoNetworkSelectedLabel.Visibility = Visibility.Visible;
+
+            // Clear Training Panel
+            TrainingPanel.NoNetworkSelectedLabel.Visibility = Visibility.Visible;
+            TrainingPanel.TrainingOptionsBox.Visibility = Visibility.Hidden;
+
+            // Clear Info Panel
+            InfoPanel.NoNetworkSelectedLabel.Visibility = Visibility.Visible;
+            InfoPanel.NetworkName.Visibility = Visibility.Hidden;
+        }
+
         private void NetworkSelected(NetworkButtonPanel networkPanel)
         {
             NeuralNetwork network = networks[networkPanel];
             NetworkUnselected();
-            NetworkInformationPlaceholder.Children.Add(networkInfoPanels[network]);
+            SelectedButton = networkPanel;
+            SelectedNetwork = network;
             NetworkDeleteButton.IsEnabled = true;
             networkPanel.Background = new SolidColorBrush()
             {
                 Color = Color.FromRgb(150, 150, 150)
             };
+
+            // Format Info Panel
+            InfoPanel.NetworkName.Content = network.Properties.Name;
+
+            // Format Accuracy Panel
+            AccuracyPanel.NoNetworkSelectedLabel.Visibility = Visibility.Hidden;
+            double? acc = network.Accuracy;
+            AccuracyPanel.UntestedLabel.Visibility = (acc == null) ? Visibility.Hidden : Visibility.Visible;
+            AccuracyPanel.AccuracyPercentage.Visibility = (acc != null) ? Visibility.Hidden : Visibility.Visible;
+            if (network.Accuracy != null)
+            {
+                AccuracyPanel.AccuracyPercentage.Content = (int) acc + "." + (int) ((acc % 1) * 10) + "%";
+            }
+
+            // Format Training Panel
+            TrainingPanel.IsTrainedLabel.Content = "Untrained";
+            TrainingPanel.NoNetworkSelectedLabel.Visibility = Visibility.Hidden;
+            TrainingPanel.TrainingOptionsBox.Visibility = Visibility.Visible;
+            void trainDelegate() => TrainNetwork();
+            TrainingPanel.NetworkSelected(trainDelegate);
+
+            //Format Run Display Panel
+            NetworkResult runNetwork(double[] inputActivations)
+            {
+                return RunSelectedNetwork();
+            }
+            RunDisplayPanel.WithDelegate(runNetwork);
+            if (!network.Properties.Size.Equals(new NetworkSize(784, new int[] { 16 }, 10)))
+                RunDisplayPanel.RunButton.IsEnabled = false;
+
+            // Format Info Panel
+            InfoPanel.NoNetworkSelectedLabel.Visibility = Visibility.Hidden;
+            InfoPanel.NetworkName.Visibility = Visibility.Visible;
         }
 
         private void NetworkUnselected()
         {
             SelectedNetwork = null;
             NetworkDeleteButton.IsEnabled = false;
-            NetworkInformationPlaceholder.Children.Clear();
             if (SelectedButton != null)
                 SelectedButton.Background = new SolidColorBrush()
                 {
                     Color = Color.FromRgb(255, 255, 255)
                 };
             SelectedButton = null;
+
+            ClearNetworkInfoPanels();
         }
 
         private void AddNetwork(NetworkProperties props)
@@ -110,16 +165,21 @@ namespace MLearning_UI.UI_Elements
             networks.Add(networkButtonPanel, network);
             networkButtonPanel.Click += delegate (object sender2, RoutedEventArgs e)
             {
-                NetworkUnselected();
-                SelectedNetwork = network;
-                NetworkSelected(networkButtonPanel);
-                SelectedButton = networkButtonPanel;
+                if (network != SelectedNetwork)
+                {
+                    NetworkUnselected();
+                    SelectedNetwork = network;
+                    NetworkSelected(networkButtonPanel);
+                    SelectedButton = networkButtonPanel;
+                }
             };
-            void trainDelegate() => TrainNetwork();
-            NetworkInformationPanel infoPanel = new NetworkInformationPanel(network, trainDelegate);
-            networkInfoPanels.Add(network, infoPanel);
             NetworksListPanel.Children.Add(networkButtonPanel);
             DockPanel.SetDock(networkButtonPanel, Dock.Top);
+
+            if (props.IsInitialized)
+                network.Initialize(10, new Random());
+
+            NetworkSelected(networkButtonPanel);
         }
     }
 }

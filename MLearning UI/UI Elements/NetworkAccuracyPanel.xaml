@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MLearning_UI.UI_Elements.NetworkAccuracyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
+             mc:Ignorable="d" 
+             d:DesignHeight="98" d:DesignWidth="298">
+    <Border BorderBrush="DarkBlue" BorderThickness="2" Height="98" VerticalAlignment="Top">
+        <Grid Margin="-0.333,-0.333,0,-0.333">
+            <Label Content="Accuracy" FontSize="18"/>
+            <Label Name="UntestedLabel" Visibility="Hidden" Content="- Untested -" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" HorizontalContentAlignment="Right" Width="150"/>
+            <Label Name="AccuracyPercentage" Content="0%" FontSize="60" Height="95"  HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <Label Name="NoNetworkSelectedLabel" Content="No Network Selected" Visibility="Hidden" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+    </Border>
+</UserControl>

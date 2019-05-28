@@ -1,21 +1,25 @@
-﻿using MLearning_UI.Network_Elements;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace MLearning_UI.UI_Elements
 {
-    public partial class NetworkInformationPanel : UserControl
+    /// <summary>
+    /// Interaction logic for NetworkTrainingPanel.xaml
+    /// </summary>
+    public partial class NetworkTrainingPanel : UserControl
     {
         public delegate void TrainNetworkDelegate();
-        private TrainNetworkDelegate trainNetworkDelegate;
-        private NeuralNetwork network;
 
-        public NetworkInformationPanel(NeuralNetwork network, TrainNetworkDelegate trainNetworkDelegate)
+        private TrainNetworkDelegate trainNetworkDelegate;
+
+        public NetworkTrainingPanel()
         {
             InitializeComponent();
-            this.network = network;
+        }
+
+        public void NetworkSelected(TrainNetworkDelegate trainNetworkDelegate)
+        {
             this.trainNetworkDelegate = trainNetworkDelegate;
-            NetworkName.Content = network.Properties.Name;
         }
 
         private void TrainButton_Clicked(object sender, RoutedEventArgs e)

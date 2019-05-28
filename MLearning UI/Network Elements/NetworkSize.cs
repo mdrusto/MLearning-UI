@@ -23,5 +23,22 @@ namespace MLearning_UI.Network_Elements
             this.OutputLayerLength = outputLayerLength;
             this.InternalLayerCount = internalLayerLengths.Length;
         }
+        
+        public override bool Equals(object obj)
+        {
+            if (!(obj is NetworkSize))
+                return false;
+            NetworkSize other = (NetworkSize)obj;
+            if (InputLayerLength != other.InputLayerLength)
+                return false;
+            if (OutputLayerLength != other.OutputLayerLength)
+                return false;
+            for (int i = 0; i < InternalLayerCount; i++)
+            {
+                if (InternalLayerLengths[i] != other.InternalLayerLengths[i])
+                    return false;
+            }
+            return true;
+        }
     }
 }

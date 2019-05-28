@@ -8,7 +8,7 @@
         Title="AddNetworkWindow" Height="450" Width="800">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="60">
-            <TextBox Name="NetworkName" Height="23" Width="400" Margin="30,0,50,0" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Network 1"/>
+            <TextBox Name="NetworkName" Height="23" Width="300" Margin="30,0,50,0" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Network 1"/>
             <CheckBox Name="InitializeCheckbox" Content="Initialize Network" Margin="50,0,50,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
         
@@ -17,15 +17,19 @@
             <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Margin="60,0,0,0" VerticalAlignment="Center" Width="75" Click="CancelButton_Click"/>
         </StackPanel>
         <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
-            <StackPanel DockPanel.Dock="Left">
-                <Label Content="Input"/>
-                <local:AddNetworkWindowLayerDisplay x:Name="InputLayerDisplay" LayerLength="1"/>
-            </StackPanel>
-            <StackPanel DockPanel.Dock="Right">
-                <Label Content="Output"/>
-                <local:AddNetworkWindowLayerDisplay x:Name="OutputLayerDisplay" LayerLength="1"/>
-            </StackPanel>
-            <DockPanel>
+            <Border BorderThickness="1" BorderBrush="Gray" DockPanel.Dock="Left" Margin="5,5,5,5" IsEnabled="False">
+                <StackPanel>
+                    <Label Content="Input"/>
+                    <local:AddNetworkWindowLayerDisplay x:Name="InputLayerDisplay" LayerLength="1"/>
+                </StackPanel>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Gray"  DockPanel.Dock="Right" Margin="5,5,5,5" IsEnabled="False">
+                <StackPanel>
+                    <Label Content="Output"/>
+                    <local:AddNetworkWindowLayerDisplay x:Name="OutputLayerDisplay" LayerLength="1"/>
+                </StackPanel>
+            </Border>
+            <DockPanel Margin="5,5,5,5">
                 <Label Content="Internal Layers" DockPanel.Dock="Top"/>
                 <StackPanel Name="InternalLayersPanel" Orientation="Horizontal"/>
             </DockPanel>

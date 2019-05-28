@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
              mc:Ignorable="d" 
              d:DesignHeight="280" d:DesignWidth="28">
-    <Grid HorizontalAlignment="Left" Height="280" VerticalAlignment="Top" Width="28">
+    <Grid Name="MainGrid" HorizontalAlignment="Left" Height="280" VerticalAlignment="Top" Width="28">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>

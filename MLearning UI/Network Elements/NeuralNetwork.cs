@@ -7,7 +7,7 @@ namespace MLearning_UI.Network_Elements
         public NetworkProperties Properties { get; }
         private readonly Layer[] layers;
         private readonly LayerLink[] links;
-        public double Accuracy { get; set; }
+        public double? Accuracy { get; set; }
 
         public NeuralNetwork(NetworkProperties props)
         {

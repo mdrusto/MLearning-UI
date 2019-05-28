@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="800">
+        Title="MainWindow" Height="480">
 
     <DockPanel LastChildFill="True">
         <StatusBar DockPanel.Dock="Bottom" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom"/>
@@ -30,7 +30,15 @@
                     </ScrollViewer>
                 </DockPanel>
             </Border>
-            <Grid Name="NetworkInformationPlaceholder"/>
+            
+            <DockPanel Name="RightSideColumn" Width="300" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <local:NetworkAccuracyPanel x:Name="AccuracyPanel" DockPanel.Dock="Top"/>
+                <local:NetworkTrainingPanel x:Name="TrainingPanel"/>
+            </DockPanel>
+            <DockPanel>
+                <local:NetworkInfoPanel x:Name="InfoPanel" DockPanel.Dock="Top"/>
+                <local:NetworkRunDisplayPanel x:Name="RunDisplayPanel"/>
+            </DockPanel>
         </DockPanel>
     </DockPanel>
 </Window>

@@ -27,11 +27,11 @@ namespace MLearning_UI.UI_Elements
             };
             Grid.SetRow(rectangle, y);
             Grid.SetColumn(rectangle, x);
-            rectangle.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            rectangle.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+            MainGrid.Children.Add(rectangle);
+            rectangle.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+            rectangle.VerticalAlignment = System.Windows.VerticalAlignment.Center;
             rectangle.Width = 10;
             rectangle.Height = 10;
-            System.Windows.Controls.Panel.SetZIndex(rectangle, 0);
         }
 
         public void SetImage(DigitImage image)

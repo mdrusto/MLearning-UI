@@ -78,6 +78,9 @@
     <Compile Include="UI Elements\NetworkButtonPanel.xaml.cs">
       <DependentUpon>NetworkButtonPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI Elements\NetworkInfoPanel.xaml.cs">
+      <DependentUpon>NetworkInfoPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI Elements\NetworkInputDisplay.xaml.cs">
       <DependentUpon>NetworkInputDisplay.xaml</DependentUpon>
     </Compile>
@@ -86,8 +89,14 @@
     </Compile>
     <Compile Include="Network Elements\NetworkResult.cs" />
     <Compile Include="Network Elements\WeightMatrix.cs" />
-    <Compile Include="UI Elements\NetworkInformationPanel.xaml.cs">
-      <DependentUpon>NetworkInformationPanel.xaml</DependentUpon>
+    <Compile Include="UI Elements\NetworkRunDisplayPanel.xaml.cs">
+      <DependentUpon>NetworkRunDisplayPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI Elements\NetworkAccuracyPanel.xaml.cs">
+      <DependentUpon>NetworkAccuracyPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI Elements\NetworkTrainingPanel.xaml.cs">
+      <DependentUpon>NetworkTrainingPanel.xaml</DependentUpon>
     </Compile>
     <Page Include="UI Elements\AddNetworkWindow.xaml">
       <SubType>Designer</SubType>
@@ -121,6 +130,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI Elements\NetworkInfoPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI Elements\NetworkInputDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,7 +142,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI Elements\NetworkInformationPanel.xaml">
+    <Page Include="UI Elements\NetworkRunDisplayPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI Elements\NetworkAccuracyPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI Elements\NetworkTrainingPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

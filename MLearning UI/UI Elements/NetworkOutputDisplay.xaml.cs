@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MLearning_UI.UI_Elements
@@ -41,6 +31,7 @@ namespace MLearning_UI.UI_Elements
                 {
                     Fill = DefaultBrush.Clone()
                 };
+                MainGrid.Children.Add(ellipse);
                 System.Windows.Controls.Grid.SetRow(ellipse, index);
                 System.Windows.Controls.Grid.SetColumn(ellipse, 1);
                 ellipse.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
@@ -66,6 +57,10 @@ namespace MLearning_UI.UI_Elements
             for (int index = 0; index < output.Length; index++)
             {
                 ((SolidColorBrush)circles[index].Fill).Color = Color.FromRgb((byte)(256 * output[index]), 0, 0);
+                circles[index].ToolTip = new ToolTip
+                {
+                    Content = string.Format("Confidence: {0:0.0}%", output[index] * 100)
+                };
             }
         }
     }

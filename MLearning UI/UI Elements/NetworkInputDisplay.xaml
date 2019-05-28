@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
              mc:Ignorable="d" 
              d:DesignHeight="280" d:DesignWidth="280">
-    <Grid Height="280" Width="280">
+    <Grid Name="MainGrid" Height="280" Width="280">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
