@@ -52,8 +52,8 @@ namespace MLearning_UI.UI_Elements
             {
                 AddNetwork(props);
             }
-            AddNetworkWindow addWindow = null;
-            addWindow = new AddNetworkWindow(propsDelegate);
+            AddNetworkWindow.AddNetworkWindow addWindow = null;
+            addWindow = new AddNetworkWindow.AddNetworkWindow(propsDelegate);
             addWindow.ShowDialog();
         }
 

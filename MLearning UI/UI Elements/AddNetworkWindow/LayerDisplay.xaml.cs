@@ -3,12 +3,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace MLearning_UI.UI_Elements
+namespace MLearning_UI.UI_Elements.AddNetworkWindow
 {
     /// <summary>
     /// Interaction logic for AddNetworkWindowLayerDisplay.xaml
     /// </summary>
-    public partial class AddNetworkWindowLayerDisplay : DockPanel
+    public partial class LayerDisplay : DockPanel
     {
         public int LayerLength
         {
@@ -20,7 +20,7 @@ namespace MLearning_UI.UI_Elements
             }
         }
 
-        public AddNetworkWindowLayerDisplay()
+        public LayerDisplay()
         {
             InitializeComponent();
         }
@@ -53,17 +53,17 @@ namespace MLearning_UI.UI_Elements
             DecreaseLengthButton.IsEnabled = (newLength > 1);
         }
 
-        private void IncreaseLengthButton_Click(object sender, RoutedEventArgs e)
+        protected void IncreaseLengthButton_Click(object sender, RoutedEventArgs e)
         {
             LayerLength++;
         }
 
-        private void DecreaseLengthButton_Click(object sender, RoutedEventArgs e)
+        protected void DecreaseLengthButton_Click(object sender, RoutedEventArgs e)
         {
             LayerLength--;
         }
 
-        private void LayerLengthTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        protected void LayerLengthTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (int.TryParse(LayerLengthTextBox.Text, out int newLength) && newLength > 0)
                 UpdateCircles(int.Parse(LayerLengthTextBox.Text));

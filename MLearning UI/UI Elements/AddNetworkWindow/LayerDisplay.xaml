@@ -1,0 +1,16 @@
+﻿<DockPanel x:Class="MLearning_UI.UI_Elements.AddNetworkWindow.LayerDisplay"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           mc:Ignorable="d" 
+           Height="250" Width="60" VerticalAlignment="Top">
+    <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+        <TextBox Name="LayerLengthTextBox" Height="23" Text="0" DockPanel.Dock="Left" TextChanged="LayerLengthTextBox_TextChanged"/>
+        <StackPanel DockPanel.Dock="Right">
+            <Button Name="IncreaseLengthButton" Content="^" Height="12" Width="20" Click="IncreaseLengthButton_Click"/>
+            <Button Name="DecreaseLengthButton" Content="v" Height="12" Width="20" Click="DecreaseLengthButton_Click"/>
+        </StackPanel>
+    </DockPanel>
+    <StackPanel Name="EllipseContainer" VerticalAlignment="Center"/>
+</DockPanel>

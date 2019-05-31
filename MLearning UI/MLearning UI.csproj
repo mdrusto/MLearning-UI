@@ -57,15 +57,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Network Elements\NetworkProperties.cs" />
-    <Compile Include="UI Elements\AddNetworkWindow.xaml.cs">
+    <Compile Include="UI Elements\AddNetworkWindow\AddNetworkWindow.xaml.cs">
       <DependentUpon>AddNetworkWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Network Elements\BiasVector.cs" />
-    <Compile Include="UI Elements\AddNetworkWindowAddInternalLayerButton.xaml.cs">
-      <DependentUpon>AddNetworkWindowAddInternalLayerButton.xaml</DependentUpon>
+    <Compile Include="UI Elements\AddNetworkWindow\AddInternalLayerButton.xaml.cs">
+      <DependentUpon>AddInternalLayerButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI Elements\AddNetworkWindowLayerDisplay.xaml.cs">
-      <DependentUpon>AddNetworkWindowLayerDisplay.xaml</DependentUpon>
+    <Compile Include="UI Elements\AddNetworkWindow\InternalLayerDisplay.cs" />
+    <Compile Include="UI Elements\AddNetworkWindow\LayerDisplay.xaml.cs">
+      <DependentUpon>LayerDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI Elements\DeleteNetworkConfirmationWindow.xaml.cs">
       <DependentUpon>DeleteNetworkConfirmationWindow.xaml</DependentUpon>
@@ -98,15 +99,15 @@
     <Compile Include="UI Elements\NetworkTrainingPanel.xaml.cs">
       <DependentUpon>NetworkTrainingPanel.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI Elements\AddNetworkWindow.xaml">
+    <Page Include="UI Elements\AddNetworkWindow\AddNetworkWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI Elements\AddNetworkWindowAddInternalLayerButton.xaml">
+    <Page Include="UI Elements\AddNetworkWindow\AddInternalLayerButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI Elements\AddNetworkWindowLayerDisplay.xaml">
+    <Page Include="UI Elements\AddNetworkWindow\LayerDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
