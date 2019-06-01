@@ -1,5 +1,6 @@
 ﻿using MLearning_UI.Network_Elements;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace MLearning_UI.UI_Elements.AddNetworkWindow
@@ -10,23 +11,20 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
         public delegate void CreateDelegate(NetworkProperties props);
         private CreateDelegate CreateDele;
 
-
-        private List<int> internalLayerLengths = new List<int>();
-
         private NetworkProperties CurrentProperties
         {
             get => new NetworkProperties
             {
-                Size = new NetworkSize(InputLayerDisplay.LayerLength, internalLayerLengths.ToArray(), OutputLayerDisplay.LayerLength),
+                Size = new NetworkSize(
+                    InputLayerDisplay.LayerLength, 
+                    (from x in internalLayerDisplays select x.LayerLength).ToArray(), 
+                    OutputLayerDisplay.LayerLength),
                 IsInitialized = InitializeCheckbox.IsChecked.Value,
                 Name = NetworkName.Text
             };
         }
 
-
-
         private List<InternalLayerDisplay> internalLayerDisplays = new List<InternalLayerDisplay>(0);
-
         private List<AddInternalLayerButton> addLayerButtons = new List<AddInternalLayerButton>();
 
         public AddNetworkWindow(CreateDelegate createDele)
@@ -47,10 +45,8 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
 
         private void AddInternalLayer(int position, int length) // To the left of current layer at this position
         {
-            internalLayerDisplays.GetRange(position, internalLayerLengths.Count - position).ForEach((x) => x.Position++);
-
-            internalLayerLengths.Insert(position, 0);
-
+            internalLayerDisplays.GetRange(position, internalLayerDisplays.Count - position).ForEach((x) => x.Position++);
+            
             InternalLayerDisplay display = new InternalLayerDisplay(DeleteInternalLayer, position, length);
 
             // Every layer has an AddLayerButton after it, so multiply by 2
@@ -73,7 +69,7 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
 
         private void AddAddInternalLayerButton(int pos)
         {
-            addLayerButtons.GetRange(pos, internalLayerLengths.Count - pos).ForEach((x) => x.Position++);
+            addLayerButtons.GetRange(pos, internalLayerDisplays.Count - pos).ForEach((x) => x.Position++);
 
             int positionToPlaceAddButton = pos * 2;
 
@@ -93,18 +89,20 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
         private void DeleteInternalLayer(int position)
         {
             InternalLayerDisplay display = internalLayerDisplays[position];
-            AddInternalLayerButton button = addLayerButtons[position];
+            AddInternalLayerButton button = addLayerButtons[position + 1];
             internalLayerDisplays.Remove(display);
             addLayerButtons.Remove(button);
 
             InternalLayersPanel.Children.Remove(display);
             InternalLayersPanel.Children.Remove(button);
 
-            internalLayerDisplays.GetRange(position + 1, internalLayerLengths.Count - position - 1).ForEach((x) => x.Position--);
+            internalLayerDisplays.GetRange(position, internalLayerDisplays.Count - position).ForEach(x => x.Position--);
+            if (addLayerButtons.Count > position + 1)
+                addLayerButtons.GetRange(position + 1, addLayerButtons.Count - position).ForEach(x => x.Position--);
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             CreateDele(CurrentProperties);
             Close();
         }

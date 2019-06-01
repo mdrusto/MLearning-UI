@@ -33,7 +33,7 @@
                 </StackPanel>
             </Border>
             <DockPanel Margin="5,5,5,5">
-                <Label Content="Internal Layers" DockPanel.Dock="Top"/>
+                <Label Content="Internal Layers" DockPanel.Dock="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                 <StackPanel Name="InternalLayersPanel" Orientation="Horizontal"/>
             </DockPanel>
         </DockPanel>

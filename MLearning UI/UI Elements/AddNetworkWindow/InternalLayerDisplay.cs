@@ -25,6 +25,7 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
+            deleteLayerButton.Click += DeleteLayerButton_Click;
             DockPanel.SetDock(deleteLayerButton, Dock.Bottom);
             Children.Remove(EllipseContainer);
             Children.Add(deleteLayerButton);
