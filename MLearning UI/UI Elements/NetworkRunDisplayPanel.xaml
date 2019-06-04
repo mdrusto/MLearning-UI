@@ -11,7 +11,7 @@
             <Button Name="RunButton" Content="Run" Height="20" Width="40" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="RunButton_Clicked" IsEnabled="False"/>
         </StackPanel>
         <DockPanel>
-            <Border HorizontalAlignment="Left" VerticalAlignment="Center" DockPanel.Dock="Left">
+            <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,10" DockPanel.Dock="Left" BorderBrush="Black" BorderThickness="1">
                 <local:NetworkInputDisplay x:Name="InputDisplay"/>
             </Border>
             <Border HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Right">

@@ -4,7 +4,7 @@
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
            mc:Ignorable="d" 
-           Height="250" Width="60" VerticalAlignment="Top">
+           Height="250" Width="60" VerticalAlignment="Top" HorizontalAlignment="Center">
     <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
         <TextBox Name="LayerLengthTextBox" Height="23" Text="0" DockPanel.Dock="Left" TextChanged="LayerLengthTextBox_TextChanged"/>
         <StackPanel DockPanel.Dock="Right">

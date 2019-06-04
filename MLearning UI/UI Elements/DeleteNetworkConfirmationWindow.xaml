@@ -9,7 +9,7 @@
     <StackPanel HorizontalAlignment="Center" Height="70" Margin="0,0,0,0" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled">
         <TextBlock Text="Are you sure you want to delete this network?" Height="30" HorizontalAlignment="Center" Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         <DockPanel Height="20" LastChildFill="False">
-            <Button Content="OK" Height="20" VerticalAlignment="Top" Width="110" Margin="0,0,25,0" Click="OKButton_Click"/>
+            <Button Content="OK" IsDefault="True" Height="20" VerticalAlignment="Top" Width="110" Margin="0,0,25,0" Click="OKButton_Click"/>
             <Button Content="Cancel" Height="20" VerticalAlignment="Top" Width="110" Click="CancelButton_Click"/>
         </DockPanel>
     </StackPanel>

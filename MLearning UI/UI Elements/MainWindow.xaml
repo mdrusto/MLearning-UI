@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MLearning_UI.UI_Elements"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480">
+        Title="MainWindow">
 
     <DockPanel LastChildFill="True">
         <StatusBar DockPanel.Dock="Bottom" HorizontalAlignment="Left" Height="15" VerticalAlignment="Bottom"/>

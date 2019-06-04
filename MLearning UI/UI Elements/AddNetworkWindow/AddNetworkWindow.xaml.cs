@@ -1,4 +1,5 @@
 ﻿using MLearning_UI.Network_Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -11,31 +12,34 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
         public delegate void CreateDelegate(NetworkProperties props);
         private CreateDelegate CreateDele;
 
-        private NetworkProperties CurrentProperties
+        private NetworkProperties CurrentProperties => new NetworkProperties
         {
-            get => new NetworkProperties
-            {
-                Size = new NetworkSize(
-                    InputLayerDisplay.LayerLength, 
-                    (from x in internalLayerDisplays select x.LayerLength).ToArray(), 
+            Size = new NetworkSize(
+                    InputLayerDisplay.LayerLength,
+                    (from x in internalLayerDisplays select x.LayerLength).ToArray(),
                     OutputLayerDisplay.LayerLength),
-                IsInitialized = InitializeCheckbox.IsChecked.Value,
-                Name = NetworkName.Text
-            };
-        }
+            IsInitialized = InitCheckbox.IsChecked.Value,
+            InitializationBound = IsInitialized ? double.Parse(InitBoundTextbox.Text) : (double?) null,
+            Name = NetworkName.Text
+        };
+
+        private List<string> usedNames;
 
         private List<InternalLayerDisplay> internalLayerDisplays = new List<InternalLayerDisplay>(0);
         private List<AddInternalLayerButton> addLayerButtons = new List<AddInternalLayerButton>();
 
-        public AddNetworkWindow(CreateDelegate createDele)
+        public AddNetworkWindow(CreateDelegate createDele, List<string> usedNames)
         {
             InitializeComponent();
             CreateDele = createDele;
+            this.usedNames = usedNames;
             InputLayerDisplay.LayerLength = 784;
             OutputLayerDisplay.LayerLength = 10;
             AddAddInternalLayerButton(0);
 
             AddInternalLayer(0);
+
+            NetworkName.Text = $"Network {usedNames.Count + 1}";
         }
 
         private void AddInternalLayer(int position)
@@ -110,6 +114,47 @@ namespace MLearning_UI.UI_Elements.AddNetworkWindow
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void NetworkName_TextChanged(object sender, RoutedEventArgs e)
+        {
+            if (NetworkName == null || usedNames == null) return;
+            bool isValidName = !usedNames.Contains(NetworkName.Text);
+            NameUsedLabel.Visibility = isValidName ? Visibility.Hidden : Visibility.Visible;
+            CreateButton.IsEnabled = isValidName;
+        }
+
+        private void InitBoundTextbox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            if (!double.TryParse(InitBoundTextbox.Text, out double x))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void InitCheckbox_Checked(object sender, EventArgs e)
+        {
+            if (InitBoundTextbox != null)
+            {
+                InitBoundTextbox.IsEnabled = true;
+                InitBoundLabel.IsEnabled = true;
+            }
+        }
+
+        private void InitCheckbox_Unchecked(object sender, EventArgs e)
+        {
+            InitBoundTextbox.IsEnabled = false;
+            InitBoundLabel.IsEnabled = false;
+        }
+
+        private void InitBoundTextbox_GotMouseCapture(object sender, EventArgs e)
+        {
+            InitBoundTextbox.SelectAll();
+        }
+
+        private void InitBoundTextbox_LostMouseCapture(object sender, EventArgs e)
+        {
+            InitBoundTextbox.Select(0, 0);
         }
     }
 }

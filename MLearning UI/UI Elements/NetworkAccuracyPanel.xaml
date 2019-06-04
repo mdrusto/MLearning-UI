@@ -9,8 +9,8 @@
     <Border BorderBrush="DarkBlue" BorderThickness="2" Height="98" VerticalAlignment="Top">
         <Grid Margin="-0.333,-0.333,0,-0.333">
             <Label Content="Accuracy" FontSize="18"/>
-            <Label Name="UntestedLabel" Visibility="Hidden" Content="- Untested -" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" HorizontalContentAlignment="Right" Width="150"/>
-            <Label Name="AccuracyPercentage" Content="0%" FontSize="60" Height="95"  HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <Label Name="UntestedLabel" Visibility="Visible" Content="- Untested -" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="DimGray" HorizontalContentAlignment="Right" Width="150"/>
+            <Label Name="AccuracyPercentage" Visibility="Hidden" Content="0%" FontSize="60" Height="95"  HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
             <Label Name="NoNetworkSelectedLabel" Content="No Network Selected" Visibility="Hidden" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
     </Border>

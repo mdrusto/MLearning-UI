@@ -23,19 +23,20 @@ namespace MLearning_UI.UI_Elements
             };
             Rectangle rectangle = new Rectangle
             {
-                Fill = brush
+                Fill = brush,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                VerticalAlignment = System.Windows.VerticalAlignment.Center,
+                Width = 10,
+                Height = 10
             };
             Grid.SetRow(rectangle, y);
             Grid.SetColumn(rectangle, x);
             MainGrid.Children.Add(rectangle);
-            rectangle.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-            rectangle.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            rectangle.Width = 10;
-            rectangle.Height = 10;
         }
 
         public void SetImage(DigitImage image)
         {
+            MainGrid.Children.Clear();
             for (int x = 0; x < 28; x++)
             {
                 for (int y = 0; y < 28; y++)

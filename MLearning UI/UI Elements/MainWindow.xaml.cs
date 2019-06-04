@@ -1,6 +1,7 @@
 ﻿using MLearning_UI.Network_Elements;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -53,8 +54,7 @@ namespace MLearning_UI.UI_Elements
                 AddNetwork(props);
             }
             AddNetworkWindow.AddNetworkWindow addWindow = null;
-            addWindow = new AddNetworkWindow.AddNetworkWindow(propsDelegate);
-            addWindow.ShowDialog();
+            addWindow = new AddNetworkWindow.AddNetworkWindow(propsDelegate, (from network in networks.Values select network.Properties.Name).ToList());        addWindow.ShowDialog();
         }
 
         private void NetworkDeleteButton_Click(object sender, RoutedEventArgs e)
@@ -116,8 +116,8 @@ namespace MLearning_UI.UI_Elements
             // Format Accuracy Panel
             AccuracyPanel.NoNetworkSelectedLabel.Visibility = Visibility.Hidden;
             double? acc = network.Accuracy;
-            AccuracyPanel.UntestedLabel.Visibility = (acc == null) ? Visibility.Hidden : Visibility.Visible;
-            AccuracyPanel.AccuracyPercentage.Visibility = (acc != null) ? Visibility.Hidden : Visibility.Visible;
+            AccuracyPanel.UntestedLabel.Visibility = Visibility.Visible;
+            AccuracyPanel.AccuracyPercentage.Visibility = Visibility.Hidden;
             if (network.Accuracy != null)
             {
                 AccuracyPanel.AccuracyPercentage.Content = (int) acc + "." + (int) ((acc % 1) * 10) + "%";
@@ -127,8 +127,7 @@ namespace MLearning_UI.UI_Elements
             TrainingPanel.IsTrainedLabel.Content = "Untrained";
             TrainingPanel.NoNetworkSelectedLabel.Visibility = Visibility.Hidden;
             TrainingPanel.TrainingOptionsBox.Visibility = Visibility.Visible;
-            void trainDelegate() => TrainNetwork();
-            TrainingPanel.NetworkSelected(trainDelegate);
+            TrainingPanel.NetworkSelected(TrainNetwork);
 
             //Format Run Display Panel
             NetworkResult runNetwork(double[] inputActivations)
@@ -136,8 +135,6 @@ namespace MLearning_UI.UI_Elements
                 return RunSelectedNetwork();
             }
             RunDisplayPanel.WithDelegate(runNetwork);
-            if (!network.Properties.Size.Equals(new NetworkSize(784, new int[] { 16 }, 10)))
-                RunDisplayPanel.RunButton.IsEnabled = false;
 
             // Format Info Panel
             InfoPanel.NoNetworkSelectedLabel.Visibility = Visibility.Hidden;
@@ -177,7 +174,7 @@ namespace MLearning_UI.UI_Elements
             DockPanel.SetDock(networkButtonPanel, Dock.Top);
 
             if (props.IsInitialized)
-                network.Initialize(10, new Random());
+                network.Initialize(props.InitializationBound.Value, new Random());
 
             NetworkSelected(networkButtonPanel);
         }

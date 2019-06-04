@@ -7,16 +7,32 @@
         mc:Ignorable="d"
         Title="Add Network" SizeToContent="WidthAndHeight">
     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border DockPanel.Dock="Top" BorderBrush="Gray" BorderThickness="1" Margin="5,5,5,5">
-            <StackPanel Orientation="Horizontal" Height="60">
-                <TextBox Name="NetworkName" Height="23" Width="300" Margin="30,0,10,0" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="Network 1"/>
-                <CheckBox Name="InitializeCheckbox" Content="Initialize Network" Margin="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
+        <Border DockPanel.Dock="Top" MinWidth="500" BorderBrush="Gray" BorderThickness="1" Margin="5,5,5,5" HorizontalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox Text="Network Name" BorderThickness="0" FontSize="8" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0"/>
+                <TextBox Name="NetworkName" Height="23" Width="200" Text="Network 1" Margin="10,0,0,0" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" TextChanged="NetworkName_TextChanged"/>
+                <Label Name="NameUsedLabel" Content="That name has already been used." Margin="10,0,0,0" Grid.Column="0" Grid.Row="2" FontSize="8" Foreground="Red" HorizontalAlignment="Left" VerticalContentAlignment="Top" Visibility="Hidden"/>
+                <CheckBox Name="InitCheckbox" Content="Initialize Network" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="True" Checked="InitCheckbox_Checked" Unchecked="InitCheckbox_Unchecked"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+                    <Label Name="InitBoundLabel" Content="Bound:" VerticalAlignment="Center"/>
+                    <TextBox Name="InitBoundTextbox" HorizontalContentAlignment="Right" Width="30" Text="2" VerticalAlignment="Center" TextChanged="InitBoundTextbox_TextChanged" VerticalContentAlignment="Center" GotMouseCapture="InitBoundTextbox_GotMouseCapture" LostMouseCapture="InitBoundTextbox_LostMouseCapture"/>
+                </StackPanel>
+            </Grid>
         </Border>
 
         <StackPanel Height="50" DockPanel.Dock="Bottom" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Margin="20,0,20,0" VerticalAlignment="Center" Width="75" Click="CancelButton_Click"/>
-            <Button Name="CreateButton" Content="Create" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Click="CreateButton_Click"/>
+            <Button Name="CreateButton" IsDefault="True" Content="Create" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Click="CreateButton_Click"/>
         </StackPanel>
         
         <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="10,10,10,10">
@@ -34,7 +50,7 @@
             </Border>
             <DockPanel Margin="5,5,5,5">
                 <Label Content="Internal Layers" DockPanel.Dock="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-                <StackPanel Name="InternalLayersPanel" Orientation="Horizontal"/>
+                <StackPanel Name="InternalLayersPanel" HorizontalAlignment="Center" Orientation="Horizontal"/>
             </DockPanel>
         </DockPanel>
     </DockPanel>
